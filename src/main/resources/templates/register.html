@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Quiz Application</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <div class="auth-header">
+            <h1>🎯 Créer un compte</h1>
+            <p class="auth-subtitle">Rejoignez la communauté quiz et testez vos connaissances</p>
+        </div>
+        
+        <div th:if="${error}" class="error fade-in-up" th:text="${error}"></div>
+        <div th:if="${message}" class="message fade-in-up" th:text="${message}"></div>
+
+        <form th:action="@{/register}" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Entrez votre email">
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Nom (optionnel):</label>
+                <input type="text" id="name" name="name" placeholder="Laissez vide pour un nom par défaut (Utilisateur/Player)">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required placeholder="Créez un mot de passe fort">
+            </div>
+            
+            <button type="submit" class="btn full-width">
+                <span>✨ Créer le compte</span>
+            </button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Déjà un compte? <a th:href="@{/login}" class="auth-link">Connectez-vous ici</a></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

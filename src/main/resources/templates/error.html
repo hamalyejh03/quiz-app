@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <h1>⚠️ Erreur survenue</h1>
+        
+        <div class="error-details">
+            <p><strong>Statut:</strong> <span th:text="${status}">500</span></p>
+            <p><strong>Erreur:</strong> <span th:text="${error}">Erreur inconnue</span></p>
+            <p><strong>Message:</strong> <span th:text="${message}">Aucun message disponible</span></p>
+        </div>
+
+        <div class="error-actions">
+            <a th:href="@{/}" class="btn">🏠 Retour à la liste des quiz</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

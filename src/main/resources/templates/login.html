@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Quiz Application</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <div class="auth-header">
+            <h1>🔓 Bon retour!</h1>
+            <p class="auth-subtitle">Connectez-vous pour continuer votre parcours quiz</p>
+        </div>
+        
+        <div th:if="${error}" class="error fade-in-up" th:text="${error}"></div>
+        <div th:if="${message}" class="message fade-in-up" th:text="${message}"></div>
+
+        <form th:action="@{/login}" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="username">Email:</label>
+                <input type="email" id="username" name="username" required placeholder="Entrez votre email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+            </div>
+            
+            <button type="submit" class="btn full-width">
+                <span>🚀 Connexion au quiz</span>
+            </button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Pas de compte? <a th:href="@{/register}" class="auth-link">Inscrivez-vous ici</a></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

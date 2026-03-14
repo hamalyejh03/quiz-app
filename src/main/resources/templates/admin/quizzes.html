@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Administration</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <h1>Administration des Quiz</h1>
+        
+        <div class="quiz-list">
+            <div th:each="quiz : ${quizzes}" class="quiz-item">
+                <h3>ID: <span th:text="${quiz.id}">1</span> - <span th:text="${quiz.title}">Quiz Title</span></h3>
+                <p>Catégorie: <span th:text="${quiz.category}">Category</span></p>
+                <p>Nombre de questions: <span th:text="${#lists.size(quiz.questions)}">0</span></p>
+            </div>
+        </div>
+        
+        <div class="admin-actions">
+            <a th:href="@{/}" class="btn">🏠 Retour aux quiz</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz List</title>
+</head>
+<body>
+<h1>Available Quizzes</h1>
+
+<div th:if="${#lists.isEmpty(quizzes)}">
+    <p>No quizzes available.</p>
+</div>
+
+<ul th:if="${!#lists.isEmpty(quizzes)}">
+    <li th:each="quiz : ${quizzes}">
+        <a th:href="@{/quiz/{id}(id=${quiz.id})}"
+           th:text="${quiz.title}">Quiz Title</a>
+        <!-- Example of showing more fields if they exist:
+        <span th:text="${quiz.description}">Description</span>
+        -->
+    </li>
+</ul>
+
+</body>
+</html>

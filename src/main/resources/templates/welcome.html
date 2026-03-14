@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Welcome to Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <div class="quiz-header">
+            <h1 th:text="${title}">Welcome to Quiz</h1>
+            <div class="quiz-info">
+                <div class="quiz-card">
+                    <h2 th:text="${quiz.title}">Quiz Title</h2>
+                    <div class="quiz-details">
+                        <p>Vous aurez une série de 5 questions pour ce quiz.</p>
+                        <div class="quiz-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">Questions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <p class="ready-text">Êtes-vous prêt à vous mettre au défi ?</p>
+            <form th:action="@{/step-quiz/start}" method="get" class="start-form">
+                <input type="hidden" name="quizId" th:value="${quiz.id}" />
+                <button type="submit" class="btn pulse">
+                    <span>🚀 Commencer le quiz</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

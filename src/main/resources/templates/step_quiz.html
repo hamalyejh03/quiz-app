@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Question</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <!-- Progress Section -->
+        <div class="progress-container fade-in-up">
+            <div class="progress-bar">
+                <div class="progress-fill" th:style="'width: ' + (${currentIndex + 1} * 100 / ${totalQuestions}) + '%'"></div>
+            </div>
+            <div class="progress-text">
+                Question <span th:text="${currentIndex + 1}">1</span> sur <span th:text="${totalQuestions}">6</span>
+            </div>
+        </div>
+
+        <!-- Question Section -->
+        <div class="question-container fade-in-up">
+            <div class="question-header">
+                <span class="question-number" th:text="'Question ' + (${currentIndex + 1})">Question 1</span>
+            </div>
+            <h2 class="question-text" th:text="${question.questionText}">Question text here</h2>
+        </div>
+
+        <!-- Validation Message -->
+        <div id="validation-message" class="validation-message" style="display: none;">
+            Veuillez choisir une réponse avant de continuer.
+        </div>
+
+        <!-- Answer Options -->
+        <form th:action="@{/step-quiz/next}" method="post" class="quiz-form" onsubmit="return validateForm()">
+            <input type="hidden" name="quizId" th:value="${quizId}" />
+            <input type="hidden" name="questionId" th:value="${question.id}" />
+            <input type="hidden" name="currentIndex" th:value="${currentIndex}" />
+            <input type="hidden" name="totalQuestions" th:value="${totalQuestions}" />
+            <input type="hidden" name="correctCount" th:value="${correctCount}" />
+
+            <ul class="answer-options">
+                <li th:each="answer, iterStat : ${question.answers}">
+                    <label>
+                        <input type="radio"
+                               name="selectedAnswerId"
+                               th:value="${answer.id}"
+                               th:id="'answer-' + ${answer.id}" />
+                        <span th:text="${answer.answerText}">Answer option</span>
+                        <div class="answer-indicator"></div>
+                    </label>
+                </li>
+            </ul>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">
+                    <span th:if="${currentIndex + 1 < totalQuestions}">Question suivante →</span>
+                    <span th:if="${currentIndex + 1 >= totalQuestions}">Terminer le quiz!</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function validateForm() {
+    const selectedAnswer = document.querySelector('input[name="selectedAnswerId"]:checked');
+    const validationMessage = document.getElementById('validation-message');
+    
+    if (!selectedAnswer) {
+        validationMessage.style.display = 'block';
+        validationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Hide message after 3 seconds
+        setTimeout(() => {
+            validationMessage.style.display = 'none';
+        }, 3000);
+        
+        return false;
+    }
+    
+    return true;
+}
+
+// Hide validation message when user selects an answer
+document.querySelectorAll('input[name="selectedAnswerId"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        document.getElementById('validation-message').style.display = 'none';
+    });
+});
+</script>
+
+</body>
+</html>
+

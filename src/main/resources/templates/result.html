@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="content-container fade-in-up">
+        <!-- Result Header -->
+        <div class="result-header">
+            <h1>🎉 Quiz terminé!</h1>
+            <p class="result-subtitle">Excellent travail pour avoir complété le quiz!</p>
+        </div>
+
+        <!-- Score Display -->
+        <div class="result-container fade-in-up">
+            <div class="score-display">
+                <div class="score-percentage" th:text="${#numbers.formatDecimal(percentage, 1, 0)} + '%'">85%</div>
+                <div class="score-details">
+                    <div class="score-item">
+                        <span class="score-label">Bonnes réponses</span>
+                        <span class="score-value" th:text="${correctCount}">5</span>
+                    </div>
+                    <div class="score-divider">/</div>
+                    <div class="score-item">
+                        <span class="score-label">Total des questions</span>
+                        <span class="score-value" th:text="${totalQuestions}">6</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Message -->
+            <div class="performance-message">
+                <div th:if="${percentage >= 80}" class="performance-excellent">
+                    <span class="performance-icon">🏆</span>
+                    <span class="performance-text">Performance excellente!</span>
+                    <p class="performance-desc">Vous avez maîtrisé ce sujet!</p>
+                </div>
+                <div th:if="${percentage >= 60 and percentage < 80}" class="performance-good">
+                    <span class="performance-icon">👏</span>
+                    <span class="performance-text">Bon travail!</span>
+                    <p class="performance-desc">Vous vous en sortez bien, continuez ainsi!</p>
+                </div>
+                <div th:if="${percentage >= 40 and percentage < 60}" class="performance-average">
+                    <span class="performance-icon">📚</span>
+                    <span class="performance-text">Continuez à pratiquer!</span>
+                    <p class="performance-desc">Vous êtes sur la bonne voie!</p>
+                </div>
+                <div th:if="${percentage < 40}" class="performance-needs-work">
+                    <span class="performance-icon">💪</span>
+                    <span class="performance-text">Continuez à apprendre!</span>
+                    <p class="performance-desc">Chaque expert a été un débutant!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="result-actions">
+            <a th:href="@{/}" class="btn">
+                <span>🏠 Retour à la liste des quiz</span>
+            </a>
+            <a th:href="@{/step-quiz/start(quizId=${param.quizId})}" class="btn secondary-btn">
+                <span>🔄 Réessayer</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
